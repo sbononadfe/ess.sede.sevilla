@@ -82,7 +82,7 @@ html,body{
 	width: calc(100% - 80px);
 	margin: 10px auto 0;
 	border-radius: 28px;
-	overflow: visible;
+	overflow: hidden;
 }
 .brand{
 	/* reemplaza regla anterior para disponer como fila */
@@ -95,7 +95,7 @@ html,body{
 	padding:6px 10px;
 	border-radius:10px;
 	box-shadow: 0 6px 22px rgba(2,47,75,0.04);
-	position: relative; /* ADDED: permite que el dropdown se posicione respecto a la marca */
+	/* remove position: relative added for mobile */
 }
 .brand-logo{
 	/* aumentado para ver más detalles del logo */
@@ -583,69 +583,4 @@ body{ margin:0; }
 }
 @media (max-width:360px){
 	.map-image{ max-width:280px; }
-}
-
-/* -------------------------
-   Mobile nav toggle + responsive dropdown
-   ------------------------- */
-.nav-toggle{
-	/* oculto por defecto en desktop */
-	display:none;
-	background:transparent;
-	border:0;
-	color:var(--accent);
-	font-size:22px;
-	padding:8px;
-	border-radius:8px;
-	cursor:pointer;
-	align-items:center;
-	justify-content:center;
-	position: relative;
-	z-index: 10010; /* ADDED: botón por encima para interacción fiable */
-}
-
-/* Ajustes para pantallas pequeñas: ocultar nav horizontal y mostrar botón */
-@media (max-width:900px){
-	.nav-toggle{ display:inline-flex; }
-
-	/* convertir el pill de navegación en dropdown oculto por defecto */
-	.site-nav{
-		position:absolute;
-		top: 100%; /* ADJUSTED: colocar justo debajo del contenedor (.brand) */
-		right: 12px;
-		left: auto;
-		background: rgba(255,255,255,0.98);
-		box-shadow: 0 12px 30px rgba(2,6,23,0.08);
-		border-radius:12px;
-		padding:12px;
-		display:none;
-		flex-direction:column;
-		min-width:200px;
-		z-index:10005;
-		box-sizing: border-box;
-	}
-
-	/* cuando se abre con JS */
-	.site-nav.open{
-		display:flex;
-		z-index:10005;           /* asegurar por encima del header */
-		max-height: calc(100vh - 120px); /* permitir scroll si ocupa mucho alto */
-		overflow:auto;
-		-webkit-overflow-scrolling: touch;
-	}
-
-	/* móvil muy estrecho: ocupar casi todo el ancho y no salirse del viewport */
-	@media (max-width:480px){
-		.site-nav{
-			left:12px;
-			right:12px;
-			top: calc(100% + 6px);
-			min-width: auto;
-		}
-	}
-}
-
-/* pequeño refinado cuando la nav está dentro del pill en desktop (no cambiar comportamiento actual) */
-@media (min-width:901px){
-	.site-nav{ display:flex !important; position:static; background: rgba(2,47,75,0.08); padding:6px; }
 }
