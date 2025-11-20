@@ -82,7 +82,7 @@ html,body{
 	width: calc(100% - 80px);
 	margin: 10px auto 0;
 	border-radius: 28px;
-	overflow: hidden;
+	overflow: visible;
 }
 .brand{
 	/* reemplaza regla anterior para disponer como fila */
@@ -621,7 +621,12 @@ body{ margin:0; }
 	}
 
 	/* cuando se abre con JS */
-	.site-nav.open{ display:flex; }
+	.site-nav.open{ 
+		display:flex; 
+		z-index:9999;           /* asegurar por encima del header */
+		max-height: calc(100vh - 100px); /* permitir scroll si ocupa mucho alto */
+		overflow:auto;
+	}
 
 	.site-nav ul{ flex-direction:column; gap:8px; align-items:flex-start; }
 	.site-nav a{
