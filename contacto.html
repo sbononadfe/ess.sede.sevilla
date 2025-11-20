@@ -114,27 +114,20 @@
 		});
 	</script>
 
-	<!-- added: subweb dropdown control (keeps form script intact) -->
+	<!-- updated: keep only subweb dropdown control (no mobile nav handling) -->
 	<script>
 		(function(){
-			const btn = document.querySelector('.nav-toggle');
-			const nav = document.getElementById('site-navigation');
 			const subBtn = document.querySelector('.subweb-btn');
 			const subMenu = document.getElementById('subweb-menu');
+			if(!subBtn || !subMenu) return;
 
-			const closeNav = () => { if(nav) nav.classList.remove('open'); if(btn) btn.setAttribute('aria-expanded','false'); document.documentElement.style.overflow = ''; };
-			const closeSub = () => { if(subMenu) subMenu.classList.remove('open'); if(subBtn) subBtn.setAttribute('aria-expanded','false'); };
+			const closeSub = () => { subMenu.classList.remove('open'); subBtn.setAttribute('aria-expanded','false'); };
 
-			if(btn && nav){
-				btn.addEventListener('click', function(e){ e.stopPropagation(); const open = nav.classList.toggle('open'); btn.setAttribute('aria-expanded', open ? 'true' : 'false'); document.documentElement.style.overflow = open ? 'hidden' : ''; if(open) closeSub(); });
-			}
-			if(subBtn && subMenu){
-				subBtn.addEventListener('click', function(e){ e.stopPropagation(); const open = subMenu.classList.toggle('open'); subBtn.setAttribute('aria-expanded', open ? 'true' : 'false'); if(open) closeNav(); });
-				subBtn.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); subBtn.click(); } if(e.key==='Escape') closeSub(); });
-				subMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeSub));
-			}
-			document.addEventListener('click', function(e){ if(subMenu && !subMenu.contains(e.target) && subBtn && !subBtn.contains(e.target)) closeSub(); if(nav && !nav.contains(e.target) && btn && !btn.contains(e.target)) closeNav(); });
-			document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ closeNav(); closeSub(); } });
+			subBtn.addEventListener('click', function(e){ e.stopPropagation(); const open = subMenu.classList.toggle('open'); subBtn.setAttribute('aria-expanded', open ? 'true' : 'false'); });
+			subBtn.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); subBtn.click(); } if(e.key==='Escape') closeSub(); });
+			subMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeSub));
+			document.addEventListener('click', function(e){ if(!subMenu.contains(e.target) && !subBtn.contains(e.target)) closeSub(); });
+			document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeSub(); });
 		})();
 	</script>
 </body>
