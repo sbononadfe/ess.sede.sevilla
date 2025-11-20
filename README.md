@@ -22,5 +22,5 @@ Su objetivo principal es ofrecer una interfaz clara y sencilla que facilite la c
 - **JavaScript** (opcional) para pequeñas interacciones o mejoras de usabilidad.
 - **GitHub Pages** como plataforma de despliegue.
  
-## Conclusión
+## Objetivo Final
 Este proyecto se ha realizado para representar una de las mejores y avanzadas sedes de enseñanzas superiores.
