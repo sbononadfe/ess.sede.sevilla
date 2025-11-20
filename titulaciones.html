@@ -15,8 +15,16 @@
 			<img class="brand-logo" src="logo.png" alt="Logo Estudios Superiores Sorolla (ESS)">
 			<span class="brand-text">Estudios Superiores Sorolla</span>
 
-			<!-- added: mobile menu toggle -->
-			<button type="button" class="nav-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="site-navigation">☰</button>
+			<!-- added: Subwebs button -->
+			<div class="subweb">
+				<button type="button" class="subweb-btn" aria-haspopup="menu" aria-expanded="false" aria-controls="subweb-menu">Subwebs ▾</button>
+				<nav id="subweb-menu" class="subweb-menu" role="menu" aria-label="Subwebs">
+					<a role="menuitem" href="index.html">Inicio</a>
+					<a role="menuitem" href="sedes.html">Nuestras Sedes</a>
+					<a role="menuitem" href="titulaciones.html">Titulaciones</a>
+					<a role="menuitem" href="contacto.html">Contacto</a>
+				</nav>
+			</div>
 
 			<nav id="site-navigation" class="site-nav" aria-label="Navegación principal">
 				<ul>
@@ -122,35 +130,27 @@
 		</div>
 	</footer>
 
-	<!-- added: mobile nav toggle script -->
+	<!-- updated script: same logic -->
 	<script>
 		(function(){
 			const btn = document.querySelector('.nav-toggle');
 			const nav = document.getElementById('site-navigation');
-			if(!btn || !nav) return;
+			const subBtn = document.querySelector('.subweb-btn');
+			const subMenu = document.getElementById('subweb-menu');
 
-			const closeNav = () => {
-				nav.classList.remove('open');
-				btn.setAttribute('aria-expanded','false');
-				document.documentElement.style.overflow = '';
-			};
+			const closeNav = () => { if(nav) nav.classList.remove('open'); if(btn) btn.setAttribute('aria-expanded','false'); document.documentElement.style.overflow = ''; };
+			const closeSub = () => { if(subMenu) subMenu.classList.remove('open'); if(subBtn) subBtn.setAttribute('aria-expanded','false'); };
 
-			btn.addEventListener('click', function(e){
-				e.stopPropagation();
-				const open = nav.classList.toggle('open');
-				btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-				document.documentElement.style.overflow = open ? 'hidden' : '';
-			});
-
-			document.addEventListener('click', function(e){
-				if(!nav.classList.contains('open')) return;
-				if(!nav.contains(e.target) && !btn.contains(e.target)){
-					closeNav();
-				}
-			});
-
-			nav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
-			document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeNav(); });
+			if(btn && nav){
+				btn.addEventListener('click', function(e){ e.stopPropagation(); const open = nav.classList.toggle('open'); btn.setAttribute('aria-expanded', open ? 'true' : 'false'); document.documentElement.style.overflow = open ? 'hidden' : ''; if(open) closeSub(); });
+			}
+			if(subBtn && subMenu){
+				subBtn.addEventListener('click', function(e){ e.stopPropagation(); const open = subMenu.classList.toggle('open'); subBtn.setAttribute('aria-expanded', open ? 'true' : 'false'); if(open) closeNav(); });
+				subBtn.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); subBtn.click(); } if(e.key==='Escape') closeSub(); });
+				subMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeSub));
+			}
+			document.addEventListener('click', function(e){ if(subMenu && !subMenu.contains(e.target) && subBtn && !subBtn.contains(e.target)) closeSub(); if(nav && !nav.contains(e.target) && btn && !btn.contains(e.target)) closeNav(); });
+			document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ closeNav(); closeSub(); } });
 		})();
 	</script>
 </body>
