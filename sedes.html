@@ -15,19 +15,6 @@
 			<img class="brand-logo" src="logo.png" alt="Logo Estudios Superiores Sorolla (ESS)">
 			<span class="brand-text">Estudios Superiores Sorolla</span>
 
-			<!-- added: Subwebs button -->
-			<div class="subweb">
-				<button type="button" class="subweb-btn" aria-haspopup="menu" aria-expanded="false" aria-controls="subweb-menu" aria-label="Abrir menú">
-					<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-				</button>
-				<nav id="subweb-menu" class="subweb-menu" role="menu" aria-label="Subwebs">
-					<a role="menuitem" href="index.html">Inicio</a>
-					<a role="menuitem" href="sedes.html">Nuestras Sedes</a>
-					<a role="menuitem" href="titulaciones.html">Titulaciones</a>
-					<a role="menuitem" href="contacto.html">Contacto</a>
-				</nav>
-			</div>
-
 			<nav id="site-navigation" class="site-nav" aria-label="Navegación principal">
 				<ul>
 					<li><a href="index.html">Inicio</a></li>
@@ -182,22 +169,5 @@
 			</div>
 		</div>
 	</footer>
-
-	<!-- updated script: subweb dropdown only -->
-	<script>
-		(function(){
-			const subBtn = document.querySelector('.subweb-btn');
-			const subMenu = document.getElementById('subweb-menu');
-			if(!subBtn || !subMenu) return;
-
-			const closeSub = () => { subMenu.classList.remove('open'); subBtn.setAttribute('aria-expanded','false'); };
-
-			subBtn.addEventListener('click', function(e){ e.stopPropagation(); const open = subMenu.classList.toggle('open'); subBtn.setAttribute('aria-expanded', open ? 'true' : 'false'); });
-			subBtn.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); subBtn.click(); } if(e.key==='Escape') closeSub(); });
-			subMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeSub));
-			document.addEventListener('click', function(e){ if(!subMenu.contains(e.target) && !subBtn.contains(e.target)) closeSub(); });
-			document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeSub(); });
-		})();
-	</script>
 </body>
 </html>
